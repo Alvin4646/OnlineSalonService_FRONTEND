@@ -61,7 +61,7 @@
                     <!-- address -->
                     <div class="col-md-12"><label class="labels">Address</label><input type="text" class="form-control"
                             placeholder="enter address " [(ngModel)]="customer.address" [disabled]="!isEditable"
-                            pattern="[a-zA-Z0-9]{5,}" #addRef="ngModel" required>
+                            pattern="[a-zA-Z0-9,-/ ]{5,}" #addRef="ngModel" required>
                     </div>
                     <div *ngIf="addRef.invalid && (addRef.dirty || addRef.touched)">
 

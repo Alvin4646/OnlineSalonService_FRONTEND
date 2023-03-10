@@ -82,6 +82,12 @@ export class AppointmentComponent implements OnInit {
     const onday = 24 * 60 * 60 * 1000;
     return appointmentDate.getTime() - currentDate.getTime() <= onday;
   }
+  public isbookAppointmentDisabled(date: any){
+    const appointmentDate = new Date(date);
+    const currentDate = new Date();
+    const onday = 24 * 60 * 60 * 1000;
+    return appointmentDate.getTime() - currentDate.getTime() <= onday;
+  }
 
   public deleteAppointment(aid: number) {
     var i = localStorage.getItem('id');
@@ -136,7 +142,7 @@ export class AppointmentComponent implements OnInit {
   showPayment(id: any) {
     this.dialog.open(PaymentDialogComponent, {
       data: id,
-      height: '55%',
+      height: '60%',
       width: '25%',
     })
   }

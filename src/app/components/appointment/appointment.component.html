@@ -62,7 +62,7 @@
                         <button type="button" class="btn btn-outline-primary m-1" *ngIf="app.appointmentStatus=='OPEN'"
                             (click)="onUpdateClick(app.appointmentId)">Update Appointment</button>
                         <!-- booking button -->
-                        <button type="button" class="btn btn-outline-success m-1" *ngIf="app.appointmentStatus=='OPEN'"
+                        <button type="button" class="btn btn-outline-success m-1" *ngIf="app.appointmentStatus=='OPEN'" [disabled]="isbookAppointmentDisabled(app.preferredDate)"
                             (click)="onBookClick(app.appointmentId)">Book Appointment</button>
                         <!-- payment detail dialog -->
                         <button type="button" class="btn btn-outline-success m-1"

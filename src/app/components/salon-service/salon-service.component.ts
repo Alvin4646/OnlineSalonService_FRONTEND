@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { service } from 'src/app/models/service';
 import { LoginService } from 'src/app/services/login/login.service';
 import { SalonServiceService } from 'src/app/services/salonService/salon-service.service';
+import Swal from 'sweetalert2';
 import { AddSalonServiceComponent } from '../admin/add-salon-service/add-salon-service.component';
 import { UpdateSalonServiceComponent } from '../admin/update-salon-service/update-salon-service.component';
 
@@ -40,12 +41,16 @@ export class SalonServiceComponent implements OnInit {
   addToCart(service: any): void {
     var i = localStorage.getItem('id');
     const id: number = +i!;
-    if (window.confirm("Add to cart?"))
+    
       this.salonServices.addServiceById(service, id)
         .subscribe(
           {
             next: (data) => {
-              console.log("Added to cart" + service);
+              Swal.fire(
+                {
+                  text:"Service Added to Cart",
+                  icon:"success"
+                }).then(()=>{window.location.reload()})
               this.msg = "Added service to cart";
               this.errorMsg = "";
             },

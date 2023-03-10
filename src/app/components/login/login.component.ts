@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Login } from 'src/app/models/login';
 import { LoginService } from 'src/app/services/login/login.service';
@@ -11,7 +11,7 @@ import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors,
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit{
   private _isLoggedIn = new BehaviorSubject<boolean>(false);
   public isLoggedIn = this._isLoggedIn.asObservable();
   user: Login = new Login();
@@ -33,8 +33,16 @@ export class LoginComponent {
     }, { validators: this.checkPasswords.bind(this) })
 
     //check login
-    const Uname = localStorage.getItem('username');
-    this._isLoggedIn.next(!!Uname);
+    const token = localStorage.getItem('token');
+    this._isLoggedIn.next(!!token);
+  }
+  ngOnInit() {
+    const token = localStorage.getItem('token');
+    if (token != null) {
+      if (this.service.tokenExpired(token)) {
+        localStorage.clear();
+      }
+    }
   }
 
   // validator to check if passwords are same

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Customer } from 'src/app/models/customer';
 import { CustomerService } from 'src/app/services/customer/customer.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-update-customer',
@@ -36,6 +37,11 @@ export class UpdateCustomerComponent implements OnInit {
     this.customerService.updateCustomer(this.customer, id).subscribe({
       next: (data: any) => {
         console.log(data);
+        Swal.fire(
+          {
+            text:"You have Successfully Updated your Profile",
+            icon:"success"
+          }).then(()=>{window.location.reload()})
         this.msg = "You have Successfully Updated your Profile...";
         this.errorMsg = ""
       },
