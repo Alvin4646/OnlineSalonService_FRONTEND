@@ -5,6 +5,7 @@ import { AppointmentsService } from 'src/app/services/appointment/appointments.s
 import { Appointment } from 'src/app/models/appointment';
 import { LoginComponent } from '../login/login.component';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-book-appointment',
   templateUrl: './book-appointment.component.html',
@@ -55,6 +56,13 @@ export class BookAppointmentComponent implements OnInit {
     this.appointmentService.addAppointment(id, this.appointment).subscribe(
       {
         next: (data) => {
+          Swal.fire(
+            {
+              text:"Appointment Added Successfully",
+              icon:"success",
+              showConfirmButton:false,
+              timer:1000
+            })
           this.addMsg = "Appointment added successfully!";
           this.errorMsg = "";
           this.appointment = data

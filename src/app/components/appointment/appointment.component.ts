@@ -124,8 +124,7 @@ export class AppointmentComponent implements OnInit {
   }
 
   onBookClick(id: any) {
-    sessionStorage.setItem('appId', id);
-    this.router.navigate(['/payment']);
+    this.router.navigate(['/payment',id]);
   }
 // update to existing appointment
   onUpdateClick(id: any) {
@@ -139,9 +138,9 @@ export class AppointmentComponent implements OnInit {
     }
   }
   // show payment details
-  showPayment(id: any) {
+  showPayment(id: any,appointmentStatus:any) {
     this.dialog.open(PaymentDialogComponent, {
-      data: id,
+      data:{ aid:id,status:appointmentStatus},
       height: '60%',
       width: '25%',
     })

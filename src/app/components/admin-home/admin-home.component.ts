@@ -4,6 +4,7 @@ import { Customer } from 'src/app/models/customer';
 import { Payment } from 'src/app/models/payment';
 import { service } from 'src/app/models/service';
 import { AdminService } from 'src/app/services/admin/admin.service';
+import { LoginService } from 'src/app/services/login/login.service';
 
 @Component({
   selector: 'app-admin-home',
@@ -15,8 +16,14 @@ export class AdminHomeComponent implements OnInit{
   customers:Customer[]=[];
   services:service[]=[];
   payments:Payment[]=[];
-  constructor(private adminService:AdminService){}
+  constructor(private adminService:AdminService,private service:LoginService){}
   ngOnInit(){
+    const token = localStorage.getItem('token');
+    if (token != null) {
+      if (this.service.tokenExpired(token)) {
+        localStorage.clear();
+      }
+    }
     this.fetchAllAppointments()
     this.fetchAllCustomers()
     this.fetchAllServices()

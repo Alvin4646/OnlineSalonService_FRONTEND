@@ -46,7 +46,7 @@ export class UpdateAppointmentComponent implements OnInit {
         console.log(data);
       },
       error: (err) => {
-        this.errMsg = err.error;
+        this.errMsg = JSON.stringify(err.error);
         this.updateMsg = ""
       }
     })

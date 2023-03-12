@@ -12,7 +12,7 @@ import { PaymentService } from 'src/app/services/payment/payment.service';
 export class PaymentDialogComponent implements OnInit {
   payment: Payment = new Payment;
 
-  constructor(@Inject(MAT_DIALOG_DATA) private data: number, private service: PaymentService) { }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private service: PaymentService) { }
   ngOnInit() {
     this.getPayment();
   }
@@ -25,8 +25,9 @@ export class PaymentDialogComponent implements OnInit {
   })
 
   getPayment() {
-    this.service.getPaymentById(this.data).subscribe({
+    this.service.getPaymentById(this.data.aid).subscribe({
       next: (pay) => { this.payment = pay; console.log(pay) }
     })
   }
+  
 }

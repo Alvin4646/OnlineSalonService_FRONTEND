@@ -31,7 +31,8 @@ export class AppointmentsService {
     return this.http.post("http://localhost:8090/appointment/"+cid+"/"+aid,payment,{headers,responseType: "json"});
   }
   public updateAppointment(id: number,appointment:Appointment): Observable<any> {
-    return this.http.put("http://localhost:8090/appointment/" + id, appointment, {  responseType: "json" });
+    const headers = this.authHeader.getAuthorizationHeader()
+    return this.http.put("http://localhost:8090/appointment/" + id, appointment, {headers,  responseType: "json" });
   }
   public getAppointmentById(id: number): Observable<any> {
     const headers = this.authHeader.getAuthorizationHeader()

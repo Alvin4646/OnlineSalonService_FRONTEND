@@ -48,8 +48,11 @@ export class SalonServiceComponent implements OnInit {
             next: (data) => {
               Swal.fire(
                 {
+                  
                   text:"Service Added to Cart",
-                  icon:"success"
+                  icon:"success",
+                  showConfirmButton:false,
+                  timer:1000
                 }).then(()=>{window.location.reload()})
               this.msg = "Added service to cart";
               this.errorMsg = "";

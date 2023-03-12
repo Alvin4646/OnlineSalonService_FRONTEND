@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Customer } from 'src/app/models/customer';
 import { Payment } from 'src/app/models/payment';
 import { AppointmentsService } from 'src/app/services/appointment/appointments.service';
@@ -14,9 +14,10 @@ export class PaymentComponent implements OnInit {
   customer: Customer = new Customer;
   payment: Payment = new Payment;
 
-  constructor(private customerService: CustomerService, private appointmentService: AppointmentsService, private router: Router) { }
+  constructor(private customerService: CustomerService, private appointmentService: AppointmentsService, private router: Router,private activatedRoute:ActivatedRoute) { }
   ngOnInit() {
     this.getCustomerById();
+    
   }
 
   getCustomerById() {
@@ -31,8 +32,8 @@ export class PaymentComponent implements OnInit {
       }
     )
   }
-  
-// auto payment allocation based on option selected
+
+  // auto payment allocation based on option selected
   paymentType() {
     if (this.payment.type == "CASH") {
       this.payment.status = "PENDING"
@@ -44,12 +45,23 @@ export class PaymentComponent implements OnInit {
   bookMyAppointment() {
     var i = localStorage.getItem('id');
     const cid: number = +i!;
-    var ai = sessionStorage.getItem('appId');
-    const aid: number = +ai!;
+    
+    let aid: number=0;
+    this.activatedRoute.params.subscribe(param=>
+      aid=param['id']
+      )
     console.log(this.payment);
     this.appointmentService.bookAppointment(cid, aid, this.payment).subscribe(
       {
-        next: (data) => { this.payment = data; console.log(this.payment); Swal.fire("Booked Successfully"); this.router.navigate(['/appointment']) },
+        next: (data) => { 
+          this.payment = data; console.log(this.payment); 
+          Swal.fire( {
+            text:"Appointment Booked Successfully",
+            icon:"success",
+            showConfirmButton:false,
+            timer:1000
+          }).then(()=>{this.router.navigate(['/appointment'])}) 
+           },
         error: (err) => { console.log(err) }
       }
     )

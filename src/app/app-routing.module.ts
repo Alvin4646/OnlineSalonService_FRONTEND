@@ -27,7 +27,7 @@ const routes: Routes = [
   {path:'updateAppointment',component:UpdateAppointmentComponent},
   {path:'salonService',component:SalonServiceComponent},
   {path:'cart',component:CartComponent},
-  {path:'payment',component:PaymentComponent},
+  {path:'payment/:id',component:PaymentComponent},
   {path:'updateCustomer',component:UpdateCustomerComponent},
   {path:'adminHome',component:AdminHomeComponent, canActivate:[AuthGuard,AdminGuard]},
   {path:'admin/appointments',component:AdminAppointmentsComponent, canActivate:[AuthGuard,AdminGuard]},
