@@ -32,3 +32,23 @@
 .f-right {
     float: right;
 }
+.card{
+    border-radius: 20px;
+}
+.order-card:hover{
+    animation: flicker 0.5s ease-in-out;
+}
+@keyframes flicker {
+    0%{
+        opacity: 1;
+        transform: scale(1);
+    }
+    50%{
+        opacity: 0.5;
+        transform: scale(0.95);
+    }
+    100%{
+        opacity: 1;
+        transform: scale(1);
+    }
+}

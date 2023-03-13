@@ -26,7 +26,7 @@
                     <th>Payment Amount</th>
                     <th>Payment Status</th>
                     <th>Payment type</th>
-
+                    <th>Action</th>
                 </tr>
 
             </thead>
@@ -41,12 +41,16 @@
                             class="badge badge-success rounded-pill d-inline">{{app.payment.status}}</span>
                             <span *ngIf="app.payment.status=='PENDING'"
                             class="badge badge-warning rounded-pill d-inline">{{app.payment.status}}</span>
-                <button class="btn btn-success m-2" *ngIf="app.payment.status=='PENDING'" (click)="updatePaymentStatus(app.payment.paymentId)" [disabled]="app.appointmentStatus=='CANCELED'"> <i
-                            class="fa fa-check-circle" aria-hidden="true"></i> Paid</button>
+                            <span *ngIf="app.payment.status=='REFUNDED'"
+                            class="badge badge-info rounded-pill d-inline">{{app.payment.status}}</span>
+                            
                 </td>
-                <td *ngIf="app.payment!=null">{{app.payment.type}}</td>
-                <td>
-                    <!-- <button *ngIf="app.payment.status!='PENDING'" > done</button> -->
+                <td *ngIf="app.payment!=null">{{app.payment.type}}
+                    
+                </td>
+                <td *ngIf="app.payment!=null">
+                    <button class="btn btn-success m-2" *ngIf="app.payment.status=='PENDING'" (click)="updatePaymentStatus(app.payment.paymentId)" [disabled]="app.appointmentStatus=='CANCELED'"> <i
+                        class="fa fa-check-circle" aria-hidden="true"></i> Paid</button>
                 </td>
 
                 </tr>

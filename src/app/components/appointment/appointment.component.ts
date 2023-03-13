@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { MatDialog } from '@angular/material/dialog';
 import { PaymentDialogComponent } from '../payment-dialog/payment-dialog.component';
+import { AuthHeaderService } from 'src/app/services/authHeaders/auth-header.service';
 
 @Component({
   selector: 'app-appointment',
@@ -19,10 +20,10 @@ export class AppointmentComponent implements OnInit {
   cancelMsg = "";
   deleteMsg = "";
   errorMsg: String = "";
-  constructor(private appointmentService: AppointmentsService, private customerService: CustomerService, private router: Router, private dialog: MatDialog) {
+  constructor(private appointmentService: AppointmentsService, private customerService: CustomerService, private router: Router, private dialog: MatDialog,private auth:AuthHeaderService) {
   }
   ngOnInit() {
-    const token = localStorage.getItem('token');
+    this.auth.checkUserTokenValidity();
     this.getAppointmentById();
     this.showService();
     this.appointmentService.getAllAppointments().

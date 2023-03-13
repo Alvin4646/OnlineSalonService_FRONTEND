@@ -66,14 +66,10 @@
                             (click)="onBookClick(app.appointmentId)">Book Appointment</button>
                         <!-- payment detail dialog -->
                         <button type="button" class="btn btn-outline-success m-1"
-                            *ngIf="app.appointmentStatus=='BOOKED'" (click)="showPayment(app.payment!.paymentId,app.appointmentStatus)">show
+                            *ngIf="app.appointmentStatus=='BOOKED'||app.appointmentStatus=='CANCELED'" (click)="showPayment(app.payment!.paymentId,app.appointmentStatus)">show
                             Payment
                         </button>
-                            <ul *ngIf="app.appointmentStatus=='CANCELED' &&app.payment.status=='PAID'" style="text-align: center;">
-                                <span class="badge badge-info rounded-pill " style="font-size:20px; ">
-                                    Refunded
-                                </span>
-                            </ul>
+                            
                     </td>
                 </tr>
             </tbody>

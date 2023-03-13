@@ -1,4 +1,5 @@
 import { Component,OnInit } from '@angular/core';
+import { AuthHeaderService } from 'src/app/services/authHeaders/auth-header.service';
 import { LoginService } from 'src/app/services/login/login.service';
 import Swal from 'sweetalert2';
 
@@ -8,18 +9,9 @@ import Swal from 'sweetalert2';
   styleUrls: ['./home-page.component.css']
 })
 export class HomePageComponent implements OnInit {
-  constructor(private service:LoginService){}
+  constructor(private auth:AuthHeaderService){}
   ngOnInit(){
-    const token = localStorage.getItem('token');
-    if (token != null) {
-      if (this.service.tokenExpired(token)) {
-        Swal.fire({
-          icon:'error',
-          text:"Session Expired Please Login again"
-        })
-        localStorage.clear();
-      }
-    }
+   this.auth.checkUserTokenValidity();
   }
 
 }

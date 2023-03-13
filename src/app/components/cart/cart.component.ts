@@ -3,6 +3,7 @@ import { Customer } from 'src/app/models/customer';
 import { CustomerService } from 'src/app/services/customer/customer.service';
 import { CartService } from 'src/app/services/cart/cart.service'
 import Swal from 'sweetalert2';
+import { AuthHeaderService } from 'src/app/services/authHeaders/auth-header.service';
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
@@ -11,10 +12,11 @@ import Swal from 'sweetalert2';
 export class CartComponent implements OnInit {
   customer: Customer = new Customer();
   
-  constructor(private customerService: CustomerService, private cartService: CartService) { }
+  constructor(private customerService: CustomerService, private cartService: CartService,private auth:AuthHeaderService) { }
 
   ngOnInit() {
-    this.fetchCuctomerById()
+    this.auth.checkUserTokenValidity();
+    this.fetchCuctomerById();
   }
 
   removeFromCart(sid: number) {

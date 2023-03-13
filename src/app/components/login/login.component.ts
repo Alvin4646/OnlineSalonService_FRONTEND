@@ -132,7 +132,7 @@ export class LoginComponent implements OnInit{
           console.log(data)
         },
         error: (err) => {
-          this.errorMsg = err.error
+          this.errorMsg = JSON.stringify(err.error)
           this.msg = ""
           console.log(err)
         }

@@ -6,6 +6,7 @@ import { Appointment } from 'src/app/models/appointment';
 import { LoginComponent } from '../login/login.component';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { AuthHeaderService } from 'src/app/services/authHeaders/auth-header.service';
 @Component({
   selector: 'app-book-appointment',
   templateUrl: './book-appointment.component.html',
@@ -21,16 +22,9 @@ export class BookAppointmentComponent implements OnInit {
   isLogin = false;
 
 
-  constructor(private customerService: CustomerService, private appointmentService: AppointmentsService, private router: Router, public security: LoginComponent) { }
+  constructor(private customerService: CustomerService, private appointmentService: AppointmentsService, private router: Router, public auth:AuthHeaderService) { }
   ngOnInit() {
-    this.security.isLoggedIn.subscribe(
-      (login) => {
-        this.isLogin = login;
-        if (!this.isLogin) {
-          this.router.navigate(['/login']);
-        }
-      }
-    )
+    this.auth.checkUserTokenValidity();
     this.getCustomerById();
   }
 

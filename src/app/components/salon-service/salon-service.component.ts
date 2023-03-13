@@ -48,7 +48,6 @@ export class SalonServiceComponent implements OnInit {
             next: (data) => {
               Swal.fire(
                 {
-                  
                   text:"Service Added to Cart",
                   icon:"success",
                   showConfirmButton:false,
@@ -58,7 +57,7 @@ export class SalonServiceComponent implements OnInit {
               this.errorMsg = "";
             },
             error: (error) => {
-              this.errorMsg = "Could not add to cart";
+              this.errorMsg = JSON.stringify(error.error);
               this.msg = "";
             }
           }

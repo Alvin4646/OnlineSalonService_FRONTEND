@@ -33,7 +33,7 @@
                 </tr>
             </thead>
             <tbody *ngFor="let cust of customer| search:query">
-
+               
                 <tr *ngFor="let app of cust.appointments| search:query">
                     <td>{{cust.name}}</td>
                     <td>{{app.appointmentId}}</td>

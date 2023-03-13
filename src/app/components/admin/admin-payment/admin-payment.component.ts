@@ -3,6 +3,7 @@ import { Customer } from 'src/app/models/customer';
 import { Payment } from 'src/app/models/payment';
 import { AdminService } from 'src/app/services/admin/admin.service';
 import { PaymentService } from 'src/app/services/payment/payment.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-admin-payment',
@@ -33,7 +34,17 @@ query:string="";
   updatePaymentStatus(id:number){
     this.payment.status="PAID";
     this.service.updatePayment(id,this.payment).subscribe({
-      next:(data)=>{console.log(data);window.location.reload()}
+      next:(data)=>{
+        Swal.fire({
+          icon:'success',
+          text:"Payment status updated",
+          showConfirmButton:false,
+          timer:1000
+        }).then(()=>{
+          window.location.reload();
+        })
+        console.log(data);
+        }
     })
   }
 }
