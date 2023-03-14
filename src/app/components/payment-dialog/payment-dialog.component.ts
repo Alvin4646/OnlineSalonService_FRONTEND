@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog'
 import { Payment } from 'src/app/models/payment';
+import { AuthHeaderService } from 'src/app/services/authHeaders/auth-header.service';
 import { PaymentService } from 'src/app/services/payment/payment.service';
 
 @Component({
@@ -12,8 +13,9 @@ import { PaymentService } from 'src/app/services/payment/payment.service';
 export class PaymentDialogComponent implements OnInit {
   payment: Payment = new Payment;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private service: PaymentService) { }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private service: PaymentService,private auth:AuthHeaderService) { }
   ngOnInit() {
+    this.auth.checkUserTokenValidity()
     this.getPayment();
   }
 

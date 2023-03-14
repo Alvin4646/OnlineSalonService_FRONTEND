@@ -9,18 +9,20 @@
     <div *ngIf="appointment.length == 0">
         <p class="alert alert-info">You don't have any appointments to display.</p>
     </div>
-    <div class="table-responsive " *ngIf="appointment.length>0">
+    <button type="button" class="btn btn-primary m-1" 
+                            (click)="changeSortFiled('preferredDate') "style="float: right;">Sort By Date</button>
+    <div class="table-responsive table-hover" *ngIf="appointment.length>0">
         <div class="p-1 bg-light rounded rounded-pill shadow-sm mb-4">
             <div class="input-group">
                 <input type="search" placeholder="What're you searching for?" aria-describedby="button-addon1"
                     [(ngModel)]="query" class="form-control border-0 bg-light">
                 <div class="input-group-append">
-                    <button id="button-addon1" type="submit" class="btn btn-link text-primary"><i
+                    <button id="button-addon1" type="submit" class="btn btn-link text-primary" ><i
                             class="fa fa-search"></i></button>
                 </div>
             </div>
         </div>
-        <table class="table colored-header datatable project-list align-middle mb-0 bg-white">
+        <table class="table colored-header datatable project-list align-middle bg-white">
             <thead class="bg-light">
                 <tr>
                     <th>Customer</th>
@@ -30,11 +32,12 @@
                     <th>preferredTime</th>
                     <th>appointmentStatus</th>
                     <th>Services</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody *ngFor="let cust of customer| search:query">
                
-                <tr *ngFor="let app of cust.appointments| search:query">
+                <tr *ngFor="let app of cust.appointments| search:query | orderByPipe:sortField:'asc' ">
                     <td>{{cust.name}}</td>
                     <td>{{app.appointmentId}}</td>
                     <td>{{app.location}}</td>
@@ -46,6 +49,8 @@
                             class="badge badge-primary rounded-pill d-inline">{{app.appointmentStatus}}</span>
                         <span *ngIf="app.appointmentStatus=='CANCELED'"
                             class="badge badge-danger rounded-pill d-inline">{{app.appointmentStatus}}</span>
+                        <span *ngIf="app.appointmentStatus=='COMPLETED'"
+                            class="badge badge-info rounded-pill d-inline">{{app.appointmentStatus}}</span>
                     </td>
                     <td>
                         <ul>
@@ -53,6 +58,10 @@
                                 {{service.seviceName}}
                             </li>
                         </ul>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-outline-success m-1" *ngIf="app.appointmentStatus=='BOOKED'" 
+                            (click)="completeAppointment(app.appointmentId)">Completed</button>
                     </td>
                 </tr>
             </tbody>

@@ -25,4 +25,13 @@ export class AdminService {
   public getAllPayments() {
     return this.http.get("http://localhost:8090/payments", { responseType: 'json' })
   }
+  public completeAppointment(id: any): Observable<any> {
+    const headers = this.authHeader.getAuthorizationHeader()
+    const body = { title: 'Angular PUT Request Example' };
+    return this.http.put("http://localhost:8090/appointment/complete/" + id, body, { headers, responseType: " text" as "json" });
+  }
+  
+  public getAppointmentsByStatus(status:any) {
+    return this.http.get("http://localhost:8090/appointments/status/"+status, { responseType: 'json' })
+  }
 }

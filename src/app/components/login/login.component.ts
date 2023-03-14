@@ -22,12 +22,12 @@ export class LoginComponent implements OnInit{
 
   constructor(private service: LoginService, private router: Router, private custService: CustomerService, private formBuilder: FormBuilder) {
     this.customerRegister = this.formBuilder.group({
-      userName: new FormControl("", [Validators.required, Validators.pattern('[a-zA-z]*')]),
+      userName: new FormControl("", [Validators.required, Validators.pattern('[a-zA-z0-9]*')]),
       password: new FormControl("", [Validators.required, Validators.pattern('[a-zA-Z0-9@#!%^&*]{8,16}$')]),
       confirmPassword: new FormControl("", [Validators.required]),
-      name: new FormControl("", [Validators.required, Validators.pattern('[a-zA-Z]{3,}$')]),
+      name: new FormControl("", [Validators.required, Validators.pattern('[a-zA-Z ]{3,}$')]),
       email: new FormControl("", [Validators.required, Validators.email]),
-      contactNo: new FormControl("", [Validators.required, Validators.minLength(10)]),
+      contactNo: new FormControl("", [Validators.required, Validators.minLength(10),Validators.pattern('^[6-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,4}$')]),
       dob: new FormControl("", [Validators.required, this.birthdateValidator()]),
       address: new FormControl("", [Validators.required, Validators.min(3), Validators.pattern('[a-zA-Z0-9,-\s ]{5,}$')]),
     }, { validators: this.checkPasswords.bind(this) })

@@ -2,6 +2,7 @@ import { Component,Inject, OnInit } from '@angular/core';
 import {MAT_DIALOG_DATA} from '@angular/material/dialog'
 import { SalonServiceService } from 'src/app/services/salonService/salon-service.service';
 import { service } from 'src/app/models/service';
+import { AuthHeaderService } from 'src/app/services/authHeaders/auth-header.service';
 @Component({
   selector: 'app-update-salon-service',
   templateUrl: './update-salon-service.component.html',
@@ -11,8 +12,9 @@ export class UpdateSalonServiceComponent implements OnInit{
   services:service=new service;
   msg:string=""
   errorMsg:string=""
-  constructor(@Inject(MAT_DIALOG_DATA) private id:number,private salonService:SalonServiceService){}
+  constructor(@Inject(MAT_DIALOG_DATA) private id:number,private salonService:SalonServiceService,private auth:AuthHeaderService){}
   ngOnInit(){
+    this.auth.checkUserTokenValidity()
    this.salonService.getServiceById(this.id).subscribe({
     next:(data:any)=>{
       this.services=data;

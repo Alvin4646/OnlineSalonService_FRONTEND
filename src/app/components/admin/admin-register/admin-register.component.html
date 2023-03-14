@@ -91,7 +91,9 @@
 
                             <div *ngIf="getControl('contactNo') && getControl('contactNo')!.invalid" class="alert alert-danger">
                                 Contact Number is required and should be of length 10.</div>
-                                
+                            <div *ngIf="getControl('contactNo') && getControl('contactNo')!.hasError('pattern') "
+                                class="alert alert-danger">
+                                Please enter a valid mobile number.</div>
                          
                         </div>
                         <!--Date of Birth-->

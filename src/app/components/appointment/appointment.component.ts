@@ -20,6 +20,11 @@ export class AppointmentComponent implements OnInit {
   cancelMsg = "";
   deleteMsg = "";
   errorMsg: String = "";
+  query:string="";
+  sortField: string = "id";
+  changeSortFiled(filed: string) {
+    this.sortField = filed;
+  }
   constructor(private appointmentService: AppointmentsService, private customerService: CustomerService, private router: Router, private dialog: MatDialog,private auth:AuthHeaderService) {
   }
   ngOnInit() {

@@ -55,7 +55,7 @@ export class BookAppointmentComponent implements OnInit {
               text:"Appointment Added Successfully",
               icon:"success",
               showConfirmButton:false,
-              timer:1000
+              timer:2000
             })
           this.addMsg = "Appointment added successfully!";
           this.errorMsg = "";

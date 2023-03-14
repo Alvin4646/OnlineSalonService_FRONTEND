@@ -13,6 +13,8 @@ import { LoginService } from 'src/app/services/login/login.service';
 })
 export class AdminHomeComponent implements OnInit{
   appointments:Appointment[]=[];
+  openApp:Appointment[]=[];
+  completedApp:Appointment[]=[];
   customers:Customer[]=[];
   services:service[]=[];
   payments:Payment[]=[];
@@ -28,6 +30,8 @@ export class AdminHomeComponent implements OnInit{
     this.fetchAllCustomers()
     this.fetchAllServices()
     this.fetchAllPayments()
+    this.fetchAppointmentByStatus()
+    this.fetchCompletedAppointment()
   }
 
   fetchAllAppointments(){
@@ -54,6 +58,24 @@ export class AdminHomeComponent implements OnInit{
   fetchAllPayments(){
     this.adminService.getAllPayments().subscribe({
       next:(data:any)=>{this.payments=data}
+    })
+  }
+  fetchAppointmentByStatus(){
+    this.adminService.getAppointmentsByStatus("BOOKED").subscribe({
+      next:(data:any)=>{
+        this.openApp=data
+        console.log(data)
+      },
+      error:(err:any)=>{console.log(err.error)}
+    })
+  }
+  fetchCompletedAppointment(){
+    this.adminService.getAppointmentsByStatus("COMPLETED").subscribe({
+      next:(data:any)=>{
+        this.completedApp=data
+        console.log(data)
+      },
+      error:(err:any)=>{console.log(err.error)}
     })
   }
 }

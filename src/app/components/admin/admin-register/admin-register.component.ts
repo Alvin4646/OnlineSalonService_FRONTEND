@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, PatternValidator, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { Customer } from 'src/app/models/customer';
+import { AuthHeaderService } from 'src/app/services/authHeaders/auth-header.service';
 import { CustomerService } from 'src/app/services/customer/customer.service';
 
 @Component({
@@ -15,20 +16,22 @@ export class AdminRegisterComponent {
   msg:string=""
   errorMsg:string=""
   adminRegister: FormGroup;
-  constructor(private formBuilder:FormBuilder,private custService:CustomerService){
+  constructor(private formBuilder:FormBuilder,private custService:CustomerService,private auth:AuthHeaderService){
     this.adminRegister=this.formBuilder.group({
-      userName:new FormControl("",[Validators.required,Validators.pattern('[a-zA-z]*')]) ,
+      userName:new FormControl("",[Validators.required,Validators.pattern('[a-zA-z0-9]*')]) ,
       password:new FormControl("",[Validators.required,Validators.pattern('[a-zA-z0-9@._]*')]),
       confirmPassword:new FormControl("",[Validators.required]),
       name:new FormControl("",[Validators.required]),
       email:new FormControl("",[Validators.required,Validators.email]),
-      contactNo:new FormControl("",[Validators.required,Validators.minLength(10)]),
+      contactNo:new FormControl("",[Validators.required,Validators.minLength(10),Validators.pattern('^[6-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,4}$')]),
       dob:new FormControl("",[Validators.required,this.birthdateValidator()]),
       address:new FormControl("",[Validators.required,Validators.min(3),Validators.pattern('[a-zA-Z0-9,-\s ]{5,}$')]),
   
     },{validators:this.checkPasswords.bind(this)})
   }
- 
+  ngOnInit(){
+    this.auth.checkUserTokenValidity();
+  }
   checkPasswords: ValidatorFn = (group: AbstractControl):  ValidationErrors | null => { 
     let pass = group.get('password')!.value;
     let confirmPass = group.get('confirmPassword')!.value

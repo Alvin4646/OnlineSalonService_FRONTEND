@@ -28,6 +28,7 @@ import { AdminRegisterComponent } from './components/admin/admin-register/admin-
 import { SalonServiceComponent } from './components/salon-service/salon-service.component';
 import { AddSalonServiceComponent } from './components/admin/add-salon-service/add-salon-service.component';
 import { UpdateSalonServiceComponent } from './components/admin/update-salon-service/update-salon-service.component';
+import { OrderByPipePipe } from './pipes/order-by-pipe.pipe';
 @NgModule({
   declarations: [
     AppComponent,
@@ -52,6 +53,7 @@ import { UpdateSalonServiceComponent } from './components/admin/update-salon-ser
     SalonServiceComponent,
     AddSalonServiceComponent,
     UpdateSalonServiceComponent,
+    OrderByPipePipe,
 
   ],
   imports: [

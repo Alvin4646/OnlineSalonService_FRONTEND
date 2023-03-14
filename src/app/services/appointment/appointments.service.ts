@@ -38,4 +38,5 @@ export class AppointmentsService {
     const headers = this.authHeader.getAuthorizationHeader()
     return this.http.get("http://localhost:8090/appointment/" + id, {headers,  responseType: "json" });
   }
+  
 }

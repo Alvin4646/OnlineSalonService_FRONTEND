@@ -43,3 +43,25 @@
   .overlay p {
     font-size: 2rem;
   }
+  .card{
+    
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+}
+
+  .card:hover{
+    animation: flicker 0.5s ease-in-out;
+}
+@keyframes flicker {
+    0%{
+        opacity: 1;
+        transform: scale(1);
+    }
+    50%{
+        opacity: 0.5;
+        transform: scale(0.95);
+    }
+    100%{
+        opacity: 1;
+        transform: scale(1);
+    }
+}

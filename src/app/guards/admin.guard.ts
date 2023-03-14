@@ -17,7 +17,7 @@ export class AdminGuard implements CanActivate {
     if (!isAuth) {
       Swal.fire({
         title: "UnAuthorized",
-        text: "Sorry are not Authorized to visit this page",
+        text: "Sorry you are not Authorized to visit this page",
         icon: 'warning',
 
       })

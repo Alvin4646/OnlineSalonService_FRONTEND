@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { service } from 'src/app/models/service';
+import { AuthHeaderService } from 'src/app/services/authHeaders/auth-header.service';
 import { SalonServiceService } from 'src/app/services/salonService/salon-service.service';
 
 @Component({
@@ -12,7 +13,10 @@ export class AddSalonServiceComponent {
   msg: String = "";
   errorMsg: String = "";
 
-constructor(private salonServices:SalonServiceService){}
+constructor(private salonServices:SalonServiceService,private auth:AuthHeaderService){}
+ngOnInit(){
+  this.auth.checkUserTokenValidity()
+}
 onSubmit() {
   console.log(this.services);
   this.salonServices.postNewService(this.services)

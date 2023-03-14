@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Customer } from 'src/app/models/customer';
 import { Payment } from 'src/app/models/payment';
 import { AdminService } from 'src/app/services/admin/admin.service';
+import { AuthHeaderService } from 'src/app/services/authHeaders/auth-header.service';
 import { PaymentService } from 'src/app/services/payment/payment.service';
 import Swal from 'sweetalert2';
 
@@ -15,8 +16,9 @@ payments:Payment[]=[];
 customer:Customer[]=[];
 payment:Payment=new Payment;
 query:string="";
-  constructor(private service:PaymentService,private adminService:AdminService){}
+  constructor(private service:PaymentService,private adminService:AdminService,private auth:AuthHeaderService){}
   ngOnInit(){
+    this.auth.checkUserTokenValidity()
     this.fetchAllPayments()
    this.fetchAllCustomers()
   }
@@ -39,7 +41,7 @@ query:string="";
           icon:'success',
           text:"Payment status updated",
           showConfirmButton:false,
-          timer:1000
+          timer:2000
         }).then(()=>{
           window.location.reload();
         })

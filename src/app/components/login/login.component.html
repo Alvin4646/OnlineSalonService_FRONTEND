@@ -29,13 +29,14 @@
                                         <div class="input-group mb-3">
                                             <span class="input-group-addon"><i class="fa fa-user"></i></span>
                                             <input type="hidden" name="pk" id="pk" [(ngModel)]="user.userId">
-                                            <input type="text" class="form-control" placeholder="Username"
+                                            <input type="text" class="form-control" placeholder="Username" pattern="[a-zA-z0-9]*"
                                                 [(ngModel)]="user.username" #unameRef="ngModel" required>
                                         </div>
                                         <!-- name validation -->
                                         <div *ngIf=" (unameRef.dirty || unameRef.touched)">
                                             <div *ngIf="unameRef.errors?.['required']" class="alert alert-danger">User
                                                 name is required.</div>
+                                            <div *ngIf="unameRef.errors?.['pattern']" class="alert alert-danger">Only alphabets and numbers no spaces</div>
                                         </div>
                                         <!-- password -->
                                         <div class="input-group mb-4">
@@ -55,7 +56,7 @@
                                         <div class="row">
                                             <div class="col">
                                                 <button type="button" class="btn btn-primary px-4"
-                                                    (click)="getAccessToken(user)">Login</button>
+                                                    (click)="getAccessToken(user)" >Login</button>
                                             </div>
                                         </div>
                                     </div>
@@ -95,7 +96,7 @@
                                                 User name is required.</div>
                                             <div *ngIf="getControl('userName') && getControl('userName')!.hasError('pattern') "
                                                 class="alert alert-danger">
-                                                onlyl number.</div>
+                                                Only alphabets.</div>
                                         </div>
 
                                         <!--Password-->
@@ -174,6 +175,9 @@
                                             <div *ngIf="getControl('contactNo') && getControl('contactNo')!.invalid"
                                                 class="alert alert-danger">
                                                 Contact Number is required and should be of length 10.</div>
+                                            <div *ngIf="getControl('contactNo') && getControl('contactNo')!.hasError('pattern') "
+                                                class="alert alert-danger">
+                                                Please enter a valid mobile number.</div>
                                         </div>
                                         <!--Date of Birth-->
                                         

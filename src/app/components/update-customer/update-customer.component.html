@@ -3,10 +3,13 @@
         <div class="col-md-3 border-right">
             <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5"
                     width="150px"
-                    src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"></div>
+                    src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png">
+                
+                </div>
+                {{customer.name}}
         </div>
         <div class="col-md-5 border-right">
-            <div class="p-3 py-5">
+            <div class="p-3 py-5" >
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <h4 class="text-right">Profile Settings</h4>
                 </div>
@@ -14,9 +17,11 @@
                 <div class="row mt-2">
                     <div class="col-md-6"><label class="labels">Name</label><input type="text" class="form-control"
                             placeholder="first name" [(ngModel)]="customer.name" #nameRef="ngModel"
-                            [disabled]="!isEditable" required>
+                            [disabled]="!isEditable" pattern="[a-zA-Z0-9]*" required>
                         <div *ngIf="nameRef.errors?.['required']" class="alert alert-danger">
                             User name is required.</div>
+                        <div *ngIf="nameRef.errors?.['pattern']" class="alert alert-danger">
+                                Only alphabets and Numbers allowed .</div>
                     </div>
 
                     <div class="col-md-6"><label class="labels">Username</label><input type="text" class="form-control"
@@ -26,12 +31,12 @@
                 <div class="row mt-3">
                     <div class="col-md-12"><label class="labels">EMail ID</label><input type="text" class="form-control"
                             placeholder="enter email id" [(ngModel)]="customer.email" #emailRef="ngModel"
-                            [disabled]="!isEditable" required>
+                            [disabled]="!isEditable" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required>
                     </div>
                     <div *ngIf="emailRef.invalid && (emailRef.dirty || emailRef.touched)">
                         <div *ngIf="emailRef.errors?.['required']" class="alert alert-danger">
-                            Password is required.</div>
-                        <div *ngIf="emailRef.errors?.['email']" class="alert alert-danger">Enter
+                            email is required.</div>
+                        <div *ngIf="emailRef.errors?.['pattern']" class="alert alert-danger">Enter
                             valid email e.g : info@gmail.com
                         </div>
                     </div>
@@ -75,7 +80,7 @@
                 <div class="mt-5 text-center"><button class="btn btn-warning profile-button" *ngIf="!isEditable"
                         type="button" (click)=" editClick()">Edit Profile</button></div>
                 <div class="mt-5 text-center"><button class="btn btn-primary profile-button" *ngIf="isEditable"
-                        (click)=" editCustomerProfile()" type="button">Save Profile</button></div>
+                        (click)=" editCustomerProfile()" type="button" >Update Profile</button></div>
                 <div class="mt-5 text-center"><button class="btn btn-warning profile-button" *ngIf="isEditable"
                         (click)=" editClick()" type="button">Cancel</button></div>
             </div>

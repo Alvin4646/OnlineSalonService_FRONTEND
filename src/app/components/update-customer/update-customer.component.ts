@@ -47,7 +47,7 @@ export class UpdateCustomerComponent implements OnInit {
       },
       error: (err: any) => {
         console.log(err);
-        this.errorMsg = err.error;
+        this.errorMsg ="Date must be past date";
         this.msg = "";
       }
     });
