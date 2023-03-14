@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit{
       confirmPassword: new FormControl("", [Validators.required]),
       name: new FormControl("", [Validators.required, Validators.pattern('[a-zA-Z ]{3,}$')]),
       email: new FormControl("", [Validators.required, Validators.email]),
-      contactNo: new FormControl("", [Validators.required, Validators.minLength(10),Validators.pattern('^[6-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,4}$')]),
+      contactNo: new FormControl("", [Validators.required, Validators.minLength(10),Validators.pattern('^[6-9]{1}?[0-9]{2,9}$')]),
       dob: new FormControl("", [Validators.required, this.birthdateValidator()]),
       address: new FormControl("", [Validators.required, Validators.min(3), Validators.pattern('[a-zA-Z0-9,-\s ]{5,}$')]),
     }, { validators: this.checkPasswords.bind(this) })
